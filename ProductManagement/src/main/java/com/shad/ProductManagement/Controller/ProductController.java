@@ -30,6 +30,21 @@ public class ProductController {
         return productService.retrieveProductById(id);
     }
 
+    // update the product information by its id;
+    @PutMapping(value = "PUT/products/{id}")
+    public Product updateProductById(@PathVariable(value = "id") Long id, @RequestBody Product product){
+        Product findProduct = productService.retrieveProductById(id);
+        findProduct.setId(id);
+        findProduct.setName(product.getName());
+        findProduct.setDescription(product.getDescription());
+        findProduct.setPrice(product.getPrice());
+        findProduct.setStockQuantity(product.getStockQuantity());
+        findProduct.setCategory(product.getCategory());
+        findProduct.setCreatedAt(findProduct.getCreatedAt());
+        findProduct.setUpdatedAt(product.getUpdatedAt());
+        return productService.updateProductById(findProduct);
+    }
+
     // delete a product by id
     @DeleteMapping(value = "DELETE/products/{id}")
     public void deleteProductById(@PathVariable(value = "id") Long id){
