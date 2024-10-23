@@ -1,11 +1,18 @@
 package com.shad.ProductManagement.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "ssd_product")
 public class Product {
     @Id
@@ -22,8 +29,12 @@ public class Product {
     private int stockQuantity;
     @Column(name = "ssd_pro_category")
     private String category;
-    @Column(name = "ssd_pro_createdAt")
+
+    @CreatedDate
+    @Column(name = "ssd_pro_createdAt") //, nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @LastModifiedDate
     @Column(name = "ssd_pro_updatedAt")
     private LocalDateTime updatedAt;
 
