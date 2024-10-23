@@ -29,4 +29,10 @@ public class ProductController {
     public Product retrieveProductById(@PathVariable(value = "id") Long id){
         return productService.retrieveProductById(id);
     }
+
+    // delete a product by id
+    @DeleteMapping(value = "DELETE/products/{id}")
+    public void deleteProductById(@PathVariable(value = "id") Long id){
+        productService.deleteProductById(id);
+    }
 }

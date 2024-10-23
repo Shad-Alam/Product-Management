@@ -22,4 +22,8 @@ public class ProductService {
     public Product retrieveProductById(Long id) {
         return productServiceRepo.findById(id).get();
     }
+
+    public void deleteProductById(Long id) {
+        productServiceRepo.deleteById(id);
+    }
 }
