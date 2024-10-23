@@ -45,6 +45,23 @@ public class ProductController {
         return productService.updateProductById(findProduct);
     }
 
+    // update product stock quantity of by its id;
+    @PatchMapping(value = "PATCH/products/{id}/update-stock")
+    public Product updateProductStockQuantityById(@PathVariable(value = "id") Long id, @RequestBody Product product){
+        Product findProduct = productService.retrieveProductById(id);
+
+        findProduct.setId(findProduct.getId());
+        findProduct.setName(findProduct.getName());
+        findProduct.setDescription(findProduct.getDescription());
+        findProduct.setPrice(findProduct.getPrice());
+        findProduct.setStockQuantity(product.getStockQuantity());
+        findProduct.setCategory(findProduct.getCategory());
+        findProduct.setCreatedAt(findProduct.getCreatedAt());
+        findProduct.setUpdatedAt(product.getUpdatedAt());
+
+        return productService.updateProductById(findProduct);
+    }
+
     // delete a product by id
     @DeleteMapping(value = "DELETE/products/{id}")
     public void deleteProductById(@PathVariable(value = "id") Long id){
