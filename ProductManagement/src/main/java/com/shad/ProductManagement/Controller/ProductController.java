@@ -3,10 +3,7 @@ package com.shad.ProductManagement.Controller;
 import com.shad.ProductManagement.Model.Product;
 import com.shad.ProductManagement.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,11 @@ public class ProductController {
     @GetMapping(value = "GET/products")
     public List<Product> retrieveAllProducts(){
         return productService.retrieveAllProducts();
+    }
+
+    // retrieve a single product by id
+    @GetMapping(value = "GET/products/{id}")
+    public Product retrieveProductById(@PathVariable(value = "id") Long id){
+        return productService.retrieveProductById(id);
     }
 }
