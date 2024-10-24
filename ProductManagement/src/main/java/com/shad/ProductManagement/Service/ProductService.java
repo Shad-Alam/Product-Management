@@ -1,7 +1,7 @@
 package com.shad.ProductManagement.Service;
 
 import com.shad.ProductManagement.Model.Product;
-import com.shad.ProductManagement.ServiceRepository.ProductServiceRepo;
+import com.shad.ProductManagement.ServiceRepository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,24 +10,24 @@ import java.util.List;
 @Service
 public class ProductService {
     @Autowired
-    ProductServiceRepo productServiceRepo;
+    ProductRepository productRepository;
     public List<Product> retrieveAllProducts() {
-        return productServiceRepo.findAll();
+        return productRepository.findAll();
     }
 
     public Product createNewProduct(Product product) {
-        return productServiceRepo.save(product);
+        return productRepository.save(product);
     }
 
     public Product retrieveProductById(Long id) {
-        return productServiceRepo.findById(id).get();
+        return productRepository.findById(id).get();
     }
 
     public void deleteProductById(Long id) {
-        productServiceRepo.deleteById(id);
+        productRepository.deleteById(id);
     }
 
     public Product updateProductById(Product findProduct) {
-        return productServiceRepo.save(findProduct);
+        return productRepository.save(findProduct);
     }
 }

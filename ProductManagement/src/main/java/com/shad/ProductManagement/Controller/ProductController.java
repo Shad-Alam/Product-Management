@@ -14,7 +14,7 @@ public class ProductController {
 
     // create a new product
     @PostMapping(value = "POST/products")
-    public Product createNewProduct(@RequestBody Product product){
+    public Product createNewProduct(@RequestBody Product product) {
         // if product name is already exits, error
         return productService.createNewProduct(product);
     }
