@@ -13,10 +13,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "ssd_product")
+@Table(name = "ssd_product", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"ssd_pro_name"})
+})
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ssd_pro_id")
     private Long id;
     @Column(name = "ssd_pro_name")
