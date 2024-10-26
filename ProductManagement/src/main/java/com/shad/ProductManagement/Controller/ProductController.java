@@ -5,6 +5,7 @@ import com.shad.ProductManagement.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -15,28 +16,27 @@ public class ProductController {
     // create a new product
     @PostMapping(value = "POST/products")
     public Product createNewProduct(@RequestBody Product product) {
-        // if product name is already exits, error
+        if (product.getPrice().compareTo(BigDecimal.valueOf(0)) < 0 || product.getStockQuantity() < 0) {
+            return null;
+        }
         return productService.createNewProduct(product);
     }
 
     // retrieve all products
     @GetMapping(value = "GET/products")
     public List<Product> retrieveAllProducts(){
-        // if
         return productService.retrieveAllProducts();
     }
 
     // retrieve a single product by id
     @GetMapping(value = "GET/products/{id}")
     public Product retrieveProductById(@PathVariable(value = "id") Long id){
-        // if id not found, then give error
         return productService.retrieveProductById(id);
     }
 
     // update the product information by its id;
     @PutMapping(value = "PUT/products/{id}")
     public Product updateProductById(@PathVariable(value = "id") Long id, @RequestBody Product product){
-        // if id not found, give error
         Product findProduct = productService.retrieveProductById(id);
         findProduct.setId(id);
         findProduct.setName(product.getName());
@@ -56,6 +56,9 @@ public class ProductController {
         // if id not found then, give error
         Product findProduct = productService.retrieveProductById(id);
 
+        if(product.getStockQuantity()<0){
+            return null;
+        }
         findProduct.setId(findProduct.getId());
         findProduct.setName(findProduct.getName());
         findProduct.setDescription(findProduct.getDescription());
@@ -71,7 +74,6 @@ public class ProductController {
     // delete a product by id
     @DeleteMapping(value = "DELETE/products/{id}")
     public void deleteProductById(@PathVariable(value = "id") Long id){
-        // if id not found, then give error
         productService.deleteProductById(id);
     }
 }
