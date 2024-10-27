@@ -6,18 +6,18 @@
 
 :point_right: **Spring Boot DDD(Doman Driven Design) Architecture:**
 
-	1. Presentation Layer: 
+	1. Presentation Layer: (RestController)
 		- The presentation layer handles the HTTP requests, 
 		translates the JSON parameter to object, and authenticates
 		the request and transfer it to the business layer.
 		
-	2. Buisness Layer:
+	2. Buisness Layer: (Service)
 		- The buisness layer handles all the buisness logic.
 		It consists of service classes and uses services provided by 
 		data access layers. It also performs authorization and 
 		validation.
 	
-	3. Persistence Layer: 
+	3. Persistence Layer: (Repository)
 		- The persistancee layer contains all the storage logic
 		and translates business objects from and to database rows.
 		
@@ -27,7 +27,7 @@
  :point_right: **To Run Project:**
 <br/>
   - git clone https://github.com/Shad-Alam/Product-Management.git <br/> 
-  - cd Product-Management <br/> <br/>
+  - cd Product-Management <br/>
   - Now open "ProductManagement" this folder with IntelliJ IDEA
   - Click Run Button
   
