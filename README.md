@@ -33,11 +33,11 @@
   
 :point_right: **Testing path using Postman :**
 <br/> 
-  1. GET :: Get-All-Products <br/> <br/>
-	http://localhost:8080/GET/products
+  1. GET :: Get-All-Products <br/>
+	- http://localhost:8080/GET/products
 	
-  2. POST :: Add-New-Product <br/> <br/>
-	http://localhost:8080/POST/products
+  2. POST :: Add-New-Product <br/>
+	- http://localhost:8080/POST/products
 	
 	Body raw(json)
 	{
@@ -48,11 +48,11 @@
 		"category": "Mobile"
 	}
   
-  3. GET :: Get-Product-By-Id
+  3. GET :: Get-Product-By-Id <br/>
 	http://localhost:8080/GET/products/1
 
-  4. PUT Update-Product-By-Id
-	http://localhost:8080/PUT/products/1
+  4. PUT Update-Product-By-Id <br/>
+	- http://localhost:8080/PUT/products/1
   
 	Body raw(json)
 	{
@@ -63,24 +63,24 @@
 		"category": "Laptop"
 	}
 	
-  5. DELETE Delete-Product-By-Id
-	http://localhost:8080/DELETE/products/1
+  5. DELETE Delete-Product-By-Id <br/>
+	- http://localhost:8080/DELETE/products/1
 
-  6. PATCH Update-Sock-Quantity
-	http://localhost:8080/PATCH/products/1/update-stock
+  6. PATCH Update-Sock-Quantity <br/>
+	- http://localhost:8080/PATCH/products/1/update-stock
 	
 	Body raw(json)
 	{
 		"stockQuantity": 32
 	}
 	
-  7. GET Search-By-Categroy
-	http://localhost:8080/CATEGORY/products/Mobile
+  7. GET Search-By-Categroy <br/>
+	- http://localhost:8080/CATEGORY/products/Mobile
   
-  8. GET discounts-on-products
-	http://localhost:8080/DISCOUNT/products/Mobile/discountAmount/30
+  8. GET discounts-on-products <br/>
+	- http://localhost:8080/DISCOUNT/products/Mobile/discountAmount/30
   
-  9. GET Pagination-Sorting
-     http://localhost:8080/PAGINATIONSORTING/products/pageNumber/0/pageSize/2/sortBy/category/sortOrder/DESC
+  9. GET Pagination-Sorting <br/>
+     - http://localhost:8080/PAGINATIONSORTING/products/pageNumber/0/pageSize/2/sortBy/category/sortOrder/DESC
 
   
