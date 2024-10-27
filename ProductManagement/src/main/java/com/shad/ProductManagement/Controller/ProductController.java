@@ -89,9 +89,28 @@ public class ProductController {
     }
 
     // pagination and sorting
-    @GetMapping(value = "PAGINATIONSORTING/pageNumber/{pgn}/pageSize/{pgs}/sortBy/{column}/sortOrder/{order}")
+    @GetMapping(value = "PAGINATIONSORTING/products/pageNumber/{pgn}/pageSize/{pgs}/sortBy/{column}/sortOrder/{order}")
     public Page<Product> paginationAndSorting(@PathVariable(value = "pgn") int pageNumber, @PathVariable(value = "pgs") int pageSize, @PathVariable(value = "column") String column, @PathVariable(value = "order") String sortDirection){
         Pageable pageable = PageRequest.of(pageNumber,pageSize, Sort.Direction.valueOf(sortDirection),column);
         return productService.paginationAndSorting(pageable);
+    }
+
+    // get discount product
+    private List<Product> getAllDiscountProducts(List<Product> productList, BigDecimal amount){
+        for(Product product : productList){
+            BigDecimal price = product.getPrice();
+            price = price.subtract(price.divide(BigDecimal.valueOf(100)).multiply(amount));
+//            price.subtract(cal);
+//            price = price.multiply(amount);
+//            price = price.divide(BigDecimal.valueOf(100));
+            product.setPrice(price);
+        }
+        return productList;
+    }
+    // discount on product
+    @GetMapping(value = "DISCOUNT/products/{category}/discountAmount/{amount}")
+    public List<Product> discountOnProduct(@PathVariable(value = "category") String category, @PathVariable BigDecimal amount){
+        List<Product> productList = getAllDiscountProducts(productService.searchByProductCategory(category), amount);
+        return productList;
     }
 }
