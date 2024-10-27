@@ -13,6 +13,7 @@ import java.util.List;
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
+    
     public List<Product> retrieveAllProducts() {
         return productRepository.findAll();
     }

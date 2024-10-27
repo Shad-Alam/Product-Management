@@ -23,7 +23,6 @@ public class ProductController {
         if (product.getPrice().compareTo(BigDecimal.valueOf(0)) < 0 || product.getStockQuantity() < 0) {
             return null;
         }
-
         return productService.createNewProduct(product);
     }
 
