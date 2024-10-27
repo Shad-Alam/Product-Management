@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -88,10 +89,9 @@ public class ProductController {
     }
 
     // pagination and sorting
-    @GetMapping(value = "PAGINATIONSORTING/pageNumber/{pgn}/pageSize/{pgs}")
-    public Page<Product> paginationAndSorting(@PathVariable(value = "pgn") int pageNumber, @PathVariable(value = "pgs") int pageSize){
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        //Pageable pageable = pageRequest;
+    @GetMapping(value = "PAGINATIONSORTING/pageNumber/{pgn}/pageSize/{pgs}/sortBy/{column}/sortOrder/{order}")
+    public Page<Product> paginationAndSorting(@PathVariable(value = "pgn") int pageNumber, @PathVariable(value = "pgs") int pageSize, @PathVariable(value = "column") String column, @PathVariable(value = "order") String sortDirection){
+        Pageable pageable = PageRequest.of(pageNumber,pageSize, Sort.Direction.valueOf(sortDirection),column);
         return productService.paginationAndSorting(pageable);
     }
 }
