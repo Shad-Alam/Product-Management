@@ -3,6 +3,9 @@ package com.shad.ProductManagement.Controller;
 import com.shad.ProductManagement.Model.Product;
 import com.shad.ProductManagement.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -82,5 +85,13 @@ public class ProductController {
     @GetMapping(value = "CATEGORY/products/{category}")
     public List<Product> searchByProductCategory(@PathVariable(value = "category") String category){
         return productService.searchByProductCategory(category);
+    }
+
+    // pagination and sorting
+    @GetMapping(value = "PAGINATIONSORTING/pageNumber/{pgn}/pageSize/{pgs}")
+    public Page<Product> paginationAndSorting(@PathVariable(value = "pgn") int pageNumber, @PathVariable(value = "pgs") int pageSize){
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        //Pageable pageable = pageRequest;
+        return productService.paginationAndSorting(pageable);
     }
 }
