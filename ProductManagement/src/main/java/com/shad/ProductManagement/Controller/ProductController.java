@@ -78,6 +78,7 @@ public class ProductController {
         productService.deleteProductById(id);
     }
 
+    // search by product category
     @GetMapping(value = "CATEGORY/products/{category}")
     public List<Product> searchByProductCategory(@PathVariable(value = "category") String category){
         return productService.searchByProductCategory(category);
