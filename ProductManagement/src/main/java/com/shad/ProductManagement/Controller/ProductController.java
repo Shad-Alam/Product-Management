@@ -23,6 +23,7 @@ public class ProductController {
         if (product.getPrice().compareTo(BigDecimal.valueOf(0)) < 0 || product.getStockQuantity() < 0) {
             return null;
         }
+
         return productService.createNewProduct(product);
     }
 
@@ -42,9 +43,11 @@ public class ProductController {
     @PutMapping(value = "PUT/products/{id}")
     public Product updateProductById(@PathVariable(value = "id") Long id, @RequestBody Product product){
         Product findProduct = productService.retrieveProductById(id);
+
         if (product.getPrice().compareTo(BigDecimal.valueOf(0)) < 0 || product.getStockQuantity() < 0) {
             return null;
         }
+
         findProduct.setId(id);
         findProduct.setName(product.getName());
         findProduct.setDescription(product.getDescription());
@@ -53,6 +56,7 @@ public class ProductController {
         findProduct.setCategory(product.getCategory());
         findProduct.setCreatedAt(findProduct.getCreatedAt());
         findProduct.setUpdatedAt(product.getUpdatedAt());
+
         return productService.updateProductById(findProduct);
     }
 
@@ -64,6 +68,7 @@ public class ProductController {
         if(product.getStockQuantity()<0){
             return null;
         }
+
         findProduct.setId(findProduct.getId());
         findProduct.setName(findProduct.getName());
         findProduct.setDescription(findProduct.getDescription());
@@ -91,7 +96,7 @@ public class ProductController {
     // pagination and sorting
     @GetMapping(value = "PAGINATIONSORTING/products/pageNumber/{pgn}/pageSize/{pgs}/sortBy/{column}/sortOrder/{order}")
     public Page<Product> paginationAndSorting(@PathVariable(value = "pgn") int pageNumber, @PathVariable(value = "pgs") int pageSize, @PathVariable(value = "column") String column, @PathVariable(value = "order") String sortDirection){
-        Pageable pageable = PageRequest.of(pageNumber,pageSize, Sort.Direction.valueOf(sortDirection),column);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.valueOf(sortDirection), column);
         return productService.paginationAndSorting(pageable);
     }
 
@@ -100,17 +105,14 @@ public class ProductController {
         for(Product product : productList){
             BigDecimal price = product.getPrice();
             price = price.subtract(price.divide(BigDecimal.valueOf(100)).multiply(amount));
-//            price.subtract(cal);
-//            price = price.multiply(amount);
-//            price = price.divide(BigDecimal.valueOf(100));
             product.setPrice(price);
         }
         return productList;
     }
+
     // discount on product
     @GetMapping(value = "DISCOUNT/products/{category}/discountAmount/{amount}")
     public List<Product> discountOnProduct(@PathVariable(value = "category") String category, @PathVariable BigDecimal amount){
-        List<Product> productList = getAllDiscountProducts(productService.searchByProductCategory(category), amount);
-        return productList;
+        return getAllDiscountProducts(productService.searchByProductCategory(category), amount);
     }
 }
