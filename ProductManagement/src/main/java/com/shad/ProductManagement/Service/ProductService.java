@@ -30,4 +30,8 @@ public class ProductService {
     public Product updateProductById(Product findProduct) {
         return productRepository.save(findProduct);
     }
+
+    public List<Product> searchByProductCategory(String category) {
+        return productRepository.findByCategory(category);
+    }
 }

@@ -38,6 +38,9 @@ public class ProductController {
     @PutMapping(value = "PUT/products/{id}")
     public Product updateProductById(@PathVariable(value = "id") Long id, @RequestBody Product product){
         Product findProduct = productService.retrieveProductById(id);
+        if (product.getPrice().compareTo(BigDecimal.valueOf(0)) < 0 || product.getStockQuantity() < 0) {
+            return null;
+        }
         findProduct.setId(id);
         findProduct.setName(product.getName());
         findProduct.setDescription(product.getDescription());
@@ -52,8 +55,6 @@ public class ProductController {
     // update product stock quantity of by its id;
     @PatchMapping(value = "PATCH/products/{id}/update-stock")
     public Product updateProductStockQuantityById(@PathVariable(value = "id") Long id, @RequestBody Product product){
-
-        // if id not found then, give error
         Product findProduct = productService.retrieveProductById(id);
 
         if(product.getStockQuantity()<0){
@@ -75,5 +76,10 @@ public class ProductController {
     @DeleteMapping(value = "DELETE/products/{id}")
     public void deleteProductById(@PathVariable(value = "id") Long id){
         productService.deleteProductById(id);
+    }
+
+    @GetMapping(value = "CATEGORY/products/{category}")
+    public List<Product> searchByProductCategory(@PathVariable(value = "category") String category){
+        return productService.searchByProductCategory(category);
     }
 }
